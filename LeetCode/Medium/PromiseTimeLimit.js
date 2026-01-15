@@ -75,55 +75,33 @@ The function immediately throws an error.
  */
 
 
-var TimeLimitedCache = function () {
-  this.cache = new Map();
+
+var timeLimit = function(fn, t) {
+    return function(...args) { // wrapper function that accepts arguments
+        return new Promise((resolve, reject) => {
+            // Timer for the time limit
+            const timer = setTimeout(() => {
+                reject("Time Limit Exceeded"); // reject if time runs out
+            }, t);
+
+            // Call the original async function
+            fn(...args)
+                .then((res) => {
+                    clearTimeout(timer); // stop the timer if fn resolves
+                    resolve(res);
+                })
+                .catch((err) => {
+                    clearTimeout(timer); // stop the timer if fn rejects
+                    reject(err);
+                });
+        });
+    };
 };
+const limited = timeLimit(async (n) => {
+    await new Promise(res => setTimeout(res, 100)); 
+    return n * n;
+}, 50);
 
-TimeLimitedCache.prototype.set = function (key, value, duration) {
-  const now = Date.now();
-  const existing = this.cache.get(key);
-
-  const isValid = existing && existing.expireAt > now;
-
-  
-  if (existing && existing.timer) {
-    clearTimeout(existing.timer);
-  }
-
-
-  const timer = setTimeout(() => {
-    this.cache.delete(key);
-  }, duration);
-
-  this.cache.set(key, {
-    value,
-    expireAt: now + duration,
-    timer,
-  });
-
-  return Boolean(isValid);
-};
-
-TimeLimitedCache.prototype.get = function (key) {
-  const entry = this.cache.get(key);
-  const now = Date.now();
-
-  if (!entry || entry.expireAt <= now) {
-    return -1;
-  }
-
-  return entry.value;
-};
-
-TimeLimitedCache.prototype.count = function () {
-  const now = Date.now();
-  let count = 0;
-
-  for (const entry of this.cache.values()) {
-    if (entry.expireAt > now) {
-      count++;
-    }
-  }
-
-  return count;
-};
+limited(5)
+    .then(res => console.log("Resolved:", res))
+    .catch(err => console.log("Rejected:", err));
