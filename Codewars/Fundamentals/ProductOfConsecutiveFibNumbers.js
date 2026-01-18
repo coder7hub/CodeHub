@@ -79,6 +79,7 @@ function productFib(prod) {
         let next = a + b; // next Fibonacci number
         a = b;
         b = next;
+        
     }
 
     // Check if we found exact product
