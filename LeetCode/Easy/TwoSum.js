@@ -37,12 +37,12 @@ Only one valid answer exists.
  
 
 Follow-up: Can you come up with an algorithm that is less than O(n2) time complexity?
- * 
- * 
- * @param {*} nums 
- * @param {*} target 
- * @returns 
- */
+//  * 
+//  * 
+//  * @param {*} nums 
+//  * @param {*} target 
+//  * @returns 
+//  */
 
 
 var twoSum = function(nums, target) {
@@ -56,3 +56,8 @@ var twoSum = function(nums, target) {
 };
 
 console.log(twoSum([1,5,3], 8)); // [1,2]
+
+
+
+
+
