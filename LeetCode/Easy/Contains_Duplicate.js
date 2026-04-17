@@ -45,8 +45,10 @@ Constraints:
  * @param {*} array 
  * @returns 
  */
+// 
 
 
+// map 
 function duplicate(array){
     let map = new Map()
     for (let i =0;i<array.length;i++){
@@ -60,3 +62,26 @@ function duplicate(array){
     return false
 }
 console.log(duplicate([1,2,3,4,1]))
+
+//set
+function duplicate(array){
+    let set = new Set()
+
+for (let i =0;i<array.length;i++){
+    let find =  set.has(array[i])
+    if(find){
+        return true
+    }else{
+        set.add(array[i])
+    }
+}
+}
+console.log(duplicate([1,2,3,4,1]))
+
+
+
+//set shortest version 
+let array =[1,2,3,4,1]
+
+let  duplicate= array=> new Set(array).size !==array.length
+console.log(duplicate(array))
