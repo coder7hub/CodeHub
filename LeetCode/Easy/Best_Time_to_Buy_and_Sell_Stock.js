@@ -33,19 +33,15 @@ Explanation: In this case, no transactions are done and the max profit = 0.
 var maxProfit = function(prices) {
     let min = prices[0];
     let max = 0;
-
     for (let i = 0; i < prices.length; i++) {
         if (prices[i] < min) {
             min = prices[i];
         }
-
         let profit = prices[i] - min;
-
         if (profit > max) {
             max = profit;
         }
     }
-
     return max;
 };
 
