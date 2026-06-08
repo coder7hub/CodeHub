@@ -21,6 +21,7 @@ var majorityElement = function(nums) {
             return key;  // return the number itself, not the count
         }
     }
+    
 };
 
 console.log(majorityElement(nums)); // Output will depend on input
