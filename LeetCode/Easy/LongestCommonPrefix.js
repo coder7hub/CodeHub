@@ -20,7 +20,9 @@ var longestCommonPrefix = function(strs) {
  */
 
 
-strs = ["dog","racecar","car"]
+strs =["flower",
+       "flow",
+       "flight"]
 
 var longestCommonPrefix = function(strs) {
     if (!strs.length || !strs[0]) return "";
